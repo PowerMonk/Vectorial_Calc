@@ -61,11 +61,10 @@ def get_predefined_coefficients(option, num_terms=10):
         name = "Onda triangular"
 
     elif option == 4:  # Serie de Fourier de la clase 
-        a0 = np.pi / 2.0  # Para que a0/2 sea pi/4
+        a0 = np.pi /4.0  # Para que a0/2 sea pi/4
         # a_n = (1 - (-1)^n) / (n^2 * pi)
         an = [((1 - (-1)**k) / ((k**2) * np.pi)) for k in range(1, num_terms + 1)]
-        # b_n = (-1)^(n+1) / n
-        bn = [((-1)**(k + 1) / k) for k in range(1, num_terms + 1)]
+        bn = [(1 / k) for k in range(1, num_terms + 1)]
         name = "Diente de sierra 'con valle' (vista en clase)"
     else:
         a0 = 1
