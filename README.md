@@ -1,6 +1,6 @@
 # Vector Calculus - Python Visualization Project
 
-This project contains a comprehensive collection of Python scripts for anyone going through the Vectorial Calculus course, helpful for visualizing and understanding vector calculus concepts (Plus a Fourier Series analysis example). The scripts are organized into four main topics (T1-T4) that progressively build upon each other to cover the fundamental concepts of vector calculus.
+This project contains a comprehensive collection of Python scripts for anyone going through the Vectorial Calculus course _(or any course that includes the extra topics outside of pure vectorial calc)_, helpful for visualizing and understanding vector calculus concepts (Plus a Fourier Series analysis example). The scripts are organized into four main topics (T1-T4) that progressively build upon each other to cover the fundamental concepts of vector calculus.
 
 ## Project Structure
 
@@ -10,7 +10,8 @@ Calculo vectorial/
 ├── T2/                 # Plane Curves, Parametric Equations and Polar Coordinates
 ├── T3/                 # Vector Functions of a Real Variable
 ├── T4/                 # Multivariable Real Functions
-└── Fourier_Series.py   # Fourier Series Analysis
+├── Fourier_Series.py   # Fourier Series Analysis
+└── Least_Squares.py    # Least Squares Method Implementation
 ```
 
 ## Requirements
@@ -135,6 +136,10 @@ This section covers multivariable calculus including directional derivatives, gr
 ## Fourier Series Module
 
 - **`Fourier_Series.py`**: Standalone module for Fourier series analysis and visualization. Demonstrates periodic function decomposition and harmonic analysis.
+
+## Least Squares Method
+
+- **`Least_Squares.py`**: Traditional least squares implementation for linear regression analysis. Calculates coefficients for the equation y = ax + b using the classical formulas. Features both predefined datasets and custom data input options, with step-by-step calculation display and prediction capabilities.
 
 ## Key Features
 
