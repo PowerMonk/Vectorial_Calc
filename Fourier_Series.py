@@ -17,13 +17,12 @@ def fourier_series(x, a0, an, bn, n_terms=None):
     else:
         n_terms = min(n_terms, len(an), len(bn))
     
-    # Iniciamos con el término constante a0/2
+    # El término constante del inicio de la ecuación a0/2
     y = a0 / 2.0
     
     # Sumamos los términos de la serie
     for n in range(n_terms):
-        # n va de 0 a n_terms-1. Para los armónicos, usamos (n+1)
-        # Accedemos a an[n] y bn[n] porque las listas están indexadas desde 0
+        # n va de 0 a n_terms-1. Para las funciones, usamos (n+1)
         y += an[n] * np.cos((n + 1) * x) + bn[n] * np.sin((n + 1) * x)
     
     return y
@@ -37,10 +36,10 @@ def get_predefined_coefficients(option, num_terms=10):
         a0 = 0
         an = [0] * num_terms
         bn = [] 
-        for k in range(1, num_terms + 1): # k representa n en la fórmula de Fourier (1, 2, 3...)
-            if k % 2 != 0: # Si k es impar
+        for k in range(1, num_terms + 1): # k representa n en la fórmula de Fourier (1, 2, 3... etc)
+            if k % 2 != 0: 
                 bn.append(4 / (np.pi * k))
-            else: # Si k es par
+            else: 
                 bn.append(0)
         name = "Onda cuadrada"
     elif option == 2:  # Onda diente de sierra
@@ -53,19 +52,23 @@ def get_predefined_coefficients(option, num_terms=10):
         an = [0] * num_terms  # Todos los coeficientes de coseno son 0
         bn = []
         for k in range(1, num_terms + 1):
-            if k % 2 != 0:  # Solo armónicos impares
+            if k % 2 != 0:  # Solo impares
                 # Fórmula: (8 / (π² * k²)) * (-1)^((k - 1)/2)
-                bn.append((8 / (np.pi**2 * k**2)) * ((-1)**((k - 1)//2)))
+                bn.append((8 / (np.pi**2 * k**2)) * ((-1)**((k - 1)/2)))
             else:
                 bn.append(0)
         name = "Onda triangular"
 
     elif option == 4:  # Serie de Fourier de la clase 
-        a0 = np.pi /4.0  # Para que a0/2 sea pi/4
-        # a_n = (1 - (-1)^n) / (n^2 * pi)
+        a0 = np.pi /4.0  # Para que a0/2 -> pi/4
         an = [((1 - (-1)**k) / ((k**2) * np.pi)) for k in range(1, num_terms + 1)]
         bn = [(1 / k) for k in range(1, num_terms + 1)]
         name = "Diente de sierra 'con valle' (vista en clase)"
+    elif option == 5:  # Serie de Fourier de la clase v2 
+        a0 = np.pi / 4.0  
+        an = [((1 / (np.pi * k**2)) * ((-1)**k - 1)) for k in range(1, num_terms + 1)]
+        bn = [(-(1 / k) * (-1)**k) for k in range(1, num_terms + 1)]
+        name = "Diente de sierra con valle v2"
     else:
         a0 = 1
         an = [0] * num_terms
@@ -85,7 +88,6 @@ def main():
     option = input("Seleccione una opción (1/2): ")
     
     if option == "1":
-        # El usuario ingresa los coeficientes
         a0 = float(input("Ingrese el coeficiente a₀: "))
         
         n_terms = int(input("¿Cuántos términos de la serie desea usar? (No tantos, no queremos que explote la computadora): "))
@@ -104,26 +106,27 @@ def main():
         function_name = "Función personalizada"
     
     else:
-        # Usar coeficientes predefinidos
+        # coeficientes predefinidos
         print("\nFunciones predefinidas:")
         print("1. Onda cuadrada")
         print("2. Onda diente de sierra")
         print("3. Onda triangular")
         print("4. Diente de sierra 'con valle' (vista en clase)")
+        print("5. Diente de sierra con valle v2")
         
-        func_option = int(input("Seleccione una función (1-4): "))
+        func_option = int(input("Seleccione una función (1-5): "))
         n_terms = int(input("¿Cuántos términos desea usar? (Recomendado: 100-1000, pero no infinitos, no queremos que explote la computadora): "))
         
         a0, an, bn, function_name = get_predefined_coefficients(func_option, n_terms)
-    
+
     # Crear puntos x para graficar (dos periodos)
     x = np.linspace(0, 4*np.pi, 1000)
     
-    # Configurar la figura para múltiples gráficos
+    # Configuramps la figura para múltiples gráficos
     fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(10, 8))
     fig.suptitle(f'Serie de Fourier: {function_name}', fontsize=16)
     
-    # Gráfico 1: Serie de Fourier completa
+    # Gráfico 1 -> Serie de Fourier comoleta
     y_full = fourier_series(x, a0, an, bn)
     ax1.plot(x, y_full, 'b-')
     ax1.set_title(f'Serie de Fourier completa ({n_terms} términos)')
@@ -132,7 +135,7 @@ def main():
     ax1.grid(True)
     ax1.set_xlim(0, 4*np.pi)
     
-    # Gráfico 2: Aproximaciones con diferente número de términos
+    # Gráfico 2 -> Aproximaciones con diferentes términos
     ax2.set_title('Aproximación con diferente número de términos')
     ax2.set_xlabel('x')
     ax2.set_ylabel('f(x)')
